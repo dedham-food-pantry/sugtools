@@ -1,0 +1,9 @@
+#!/usr/bin/python3
+
+import sys
+from sugscrape.signup import scrape_signup
+from bs4 import BeautifulSoup
+
+soup = BeautifulSoup(sys.stdin, features="lxml")
+print(soup.title.string)
+scrape_signup(soup)
