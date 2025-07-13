@@ -1,0 +1,20 @@
+#!/usr/bin/python3
+
+import json
+import sys
+
+from sugscrape.event import Event
+
+# This is the 2025 volunteer signup
+page = json.load(sys.stdin)
+
+available = []
+for signup in page["data"]["signup"]:
+    available.append(Event(signup))
+
+month = "December"
+for event in sorted(available):
+    if event.month() != month:
+        month = event.month()
+        print("\n\n" + month + "\n")
+    print(" " + str(event))
