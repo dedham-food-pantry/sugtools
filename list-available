@@ -3,9 +3,13 @@
 import json
 import sys
 
+from datetime import datetime
 from sugscrape.event import Event
+from zoneinfo import ZoneInfo
 
-# This is the 2025 volunteer signup
+now = datetime.now().astimezone(ZoneInfo("localtime"))
+
+# Parse the SUG "available" report on stdin
 page = json.load(sys.stdin)
 
 available = []
@@ -17,4 +21,6 @@ for event in sorted(available):
     if event.month() != month:
         month = event.month()
         print("\n\n" + month + "\n")
+    if event.date < now:
+        continue
     print(" " + str(event))
